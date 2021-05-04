@@ -112,8 +112,18 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Family name kana カタカナを使用してください")   
     end
+    it 'family_name_kanaは全角（カタカナ以外）では登録できない' do
+      @user.family_name_kana = 'あああ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Family name kana カタカナを使用してください")   
+    end
     it 'first_name_kanaはカタカナのみ' do
       @user.first_name_kana = 'aaa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name kana カタカナを使用してください")   
+    end    
+    it 'first_name_kanaは全角（カタカナ以外）では登録できない' do
+      @user.first_name_kana = 'あああ'
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kana カタカナを使用してください")   
     end
