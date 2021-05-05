@@ -62,9 +62,9 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("Area is not a number")
     end
     it 'area_idが0では出品できない' do
-      @item.area_id = '0'
+      @item.area_id = '1'
       @item.valid?
-      expect(@item.errors.full_messages).to include("Area must be other than 0")
+      expect(@item.errors.full_messages).to include("Area must be other than 1")
     end
     it 'days_idが空では出品できない' do
       @item.days_id = ''
