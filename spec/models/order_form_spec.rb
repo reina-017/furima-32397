@@ -11,8 +11,16 @@ RSpec.describe OrderForm, type: :model do
 
 
   describe '商品購入機能' do
-    it 'postcode、prefecture_id、city、block、building、phone_numberが存在すれば購入できる' do
+   context '商品購入できるとき' do
+    it 'postcode、prefecture_id、city、block、building、phone_number、tokenが存在すれば購入できる' do
       expect(@order_form).to be_valid
+    end
+   end
+   context '商品購入できないとき' do
+    it "tokenが空では購入できない" do
+      @order_form.token = nil
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Token can't be blank")
     end
     it 'postcodeが空では購入できない' do
       @order_form.postcode = ''
@@ -56,6 +64,6 @@ RSpec.describe OrderForm, type: :model do
       @order_form.valid?
       expect(@order_form.errors.full_messages).to include("Phone number を入力してください")
     end
-
+  end
   end
 end

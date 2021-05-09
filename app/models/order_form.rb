@@ -1,6 +1,6 @@
 class OrderForm
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :block, :building, :phone_number, :order
+  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :block, :building, :phone_number, :order, :token
 
   with_options presence: true do
     validates :user_id
@@ -11,6 +11,7 @@ class OrderForm
     validates :order
     validates :city
     validates :block
+    validates :token
   end
 
     def save
