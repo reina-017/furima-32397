@@ -5,7 +5,7 @@ FactoryBot.define do
     city              { Gimei.city.kanji }
     block             { Gimei.town.kanji }
     building          { Gimei.town.kanji }
-    phone_number      { "00000000000"}
+    phone_number      { "0000000000"}
     token {"tok_abcdefghijk00000000000000000"}
 
   

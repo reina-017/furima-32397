@@ -26,7 +26,11 @@ RSpec.describe OrderForm, type: :model do
       @order_form.postcode = ''
       @order_form.valid?
       expect(@order_form.errors.full_messages).to include("Postcode can't be blank", "Postcode を入力してください")
-
+    end
+    it 'postcodeは数字のみ' do
+      @order_form.postcode = 'あああ-ああああ'
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Postcode を入力してください")
     end
     it 'postcodeはハイフン無しでは購入できない' do
       @order_form.postcode = '1111111'
@@ -37,7 +41,6 @@ RSpec.describe OrderForm, type: :model do
       @order_form.prefecture_id = ''
       @order_form.valid?
       expect(@order_form.errors.full_messages).to include("Prefecture can't be blank")
-
     end
     it 'cityが空では購入できない' do
       @order_form.city = ''
@@ -64,6 +67,12 @@ RSpec.describe OrderForm, type: :model do
       @order_form.valid?
       expect(@order_form.errors.full_messages).to include("Phone number を入力してください")
     end
+    it 'phone_numberは9桁以下では購入できない' do
+      @order_form.phone_number = '000000000'
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Phone number を入力してください")
+    end
+    
   end
   end
 end
