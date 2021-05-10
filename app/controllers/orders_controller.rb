@@ -20,7 +20,6 @@ class OrdersController < ApplicationController
 
   private
 
-  
   def order_params
     params.require(:order_form).permit(:user_id, :item_id, :postcode, :prefecture_id, :city, :block, :building, :phone_number, :order, :number, :exp_month, :exp_year, :cvc, :token).merge(
       user_id: current_user.id, item_id: params[:item_id], order: current_user.id, token: params[:token]
@@ -34,7 +33,6 @@ class OrdersController < ApplicationController
   def set_order
     @item = Item.find(params[:item_id])
   end
-
 
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
