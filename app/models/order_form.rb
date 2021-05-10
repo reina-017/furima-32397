@@ -11,7 +11,7 @@ class OrderForm
     validates :order
     validates :city
     validates :block
-    validates :token, presence: true
+    validates :token
   end
 
   def save
