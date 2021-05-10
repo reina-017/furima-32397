@@ -5,7 +5,7 @@ class OrderForm
   with_options presence: true do
     validates :user_id
     validates :item_id
-    validates :prefecture_id
+    validates :prefecture_id, numericality: { only_integer: true, other_than: 1 }
     validates :postcode, format: { with: /\A\d{3}-\d{4}\z/, message: 'を入力してください' }
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'を入力してください' }
     validates :order

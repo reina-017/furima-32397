@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item_path, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -48,4 +49,10 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :description, :category_id, :status_id, :cost_id, :area_id, :days_id, :item_price,
                                  :image).merge(user_id: current_user.id)
   end
+   
+  def set_item_path
+    redirect_to root_path if @item.order.present? || current_user.id != @item.user_id
+  end
+
+
 end
