@@ -9,6 +9,14 @@ RSpec.describe Item, type: :model do
       it 'name、description、category_id、status_id、cost_id、area_id、days_id、item_priceが存在すれば出品できる' do
         expect(@item).to be_valid
       end
+      it 'item_priceが300円以上の時出品できる' do
+        @item.item_price = 300
+        expect(@item).to be_valid
+      end
+      it 'item_priceが9999999円以下の時出品できる' do
+        @item.item_price = 9999999
+        expect(@item).to be_valid
+      end
     end
     context '商品出品できないとき' do
       it 'nameが空では出品できない' do
@@ -81,15 +89,15 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Item price is not a number')
       end
-      it 'item_priceが300円以下では出品できない' do
-        @item.item_price = 200
+      it 'item_priceが299円以下では出品できない' do
+        @item.item_price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include('Item price must be greater than 300')
+        expect(@item.errors.full_messages).to include('Item price must be greater than or equal to 300')
       end
-      it 'item_priceが9999999円以上では出品できない' do
-        @item.item_price = 999_999_999_999
+      it 'item_priceが10000000円以上では出品できない' do
+        @item.item_price = 10000000
         @item.valid?
-        expect(@item.errors.full_messages).to include('Item price must be less than 9999999')
+        expect(@item.errors.full_messages).to include('Item price must be less than or equal to 9999999')
       end
       it 'item_priceは半角数字のみ保存可能' do
         @item.item_price = 'あああ'
